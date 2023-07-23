@@ -35,65 +35,91 @@
 
 
 
-
-        @if (Session::has('mensaje'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ Session::get('mensaje') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-        <table id="tablaVoluntarios" class="table table-striped hover row-border" style="width:100%">
-            <thead class="bg-success text-white">
+    @if (Session::has('mensaje'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ Session::get('mensaje') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    <table id="tablaVoluntarios" class="table table-striped hover row-border" style="width:100%">
+        <thead class="bg-success text-white">
+            <tr>
+                <th class="text-center">Nombre de documento</th>
+                <th class="text-center">Pais Nacimiento</th>
+                <th class="text-center">Lugar Nacimiento</th>
+                <th class="text-center">Nombres</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($voluntarios as $voluntario)
                 <tr>
-                    <th class="text-center">Nombre de documento</th>
-                    <th class="text-center">Pais Nacimiento</th>
-                    <th class="text-center">Lugar Nacimiento</th>
-                    <th class="text-center">Nombres</th>
-                    <th class="text-center">Acciones</th>
+                    <td class="text-center">{{ $voluntario->numero_documento }}</td>
+                    <td class="text-center">{{ $voluntario->pais_nacimiento }}</td>
+                    <td class="text-center">{{ $voluntario->direccion }}</td>
+                    <td class="text-center">{{ $voluntario->nombres }}</td>
+                    <td class="d-flex" width='1px'>
+
+                        <button type="button" class="ver btn btn-primary"
+                            data-voluntario-id="{{ $voluntario->idvoluntario }}">Ver</button>
+
+                        <button type="button" value="{{ $voluntario->idvoluntario }}" class="editar btn btn-warning">
+                            Editar
+                        </button>
+
+                        <form class="borrar" data-proyecto="{{ $voluntario->idvoluntario }}" action="" method="POST"
+                            style="display: inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($voluntarios as $voluntario)
-                    <tr>
-                        <td class="text-center">{{ $voluntario->numero_documento }}</td>
-                        <td class="text-center">{{ $voluntario->pais_nacimiento }}</td>
-                        <td class="text-center">{{ $voluntario->direccion }}</td>
-                        <td class="text-center">{{ $voluntario->nombres }}</td>
-                        <td width='1px'>
-                            <div class="d-flex">
-
-                                <a href="#" class="editar btn btn-primary" data-proyecto="{{ $voluntario->id }}"
-                                    data-toggle="modal" data-target="#editModal">Editar</a>
-                              
-
-                                @if ($voluntario->deleted_at)
-                                    @can('activavoluntario')
-                                        <a id="activar" data-idvoluntario="{{ $voluntario->idvoluntario }}"
-                                            href="{{ route('activavoluntario', ['idvoluntario' => $voluntario->idvoluntario]) }}"
-                                            class="btn btn-outline-warning me-1">Activar</a>
-                                    @endcan
-                                    @can('borravoluntario')
-                                        <a id="borrar" data-idvoluntario="{{ $voluntario->idvoluntario }}"
-                                            href="{{ route('borravoluntario', ['idvoluntario' => $voluntario->idvoluntario]) }}"
-                                            class="btn btn-outline-danger me-1">Borrar</a>
-                                    @endcan
-                                @else
-                                    @can('desactivavoluntario')
-                                        <a id="desactivar" data-idvoluntario="{{ $voluntario->idvoluntario }}"
-                                            href="{{ route('desactivavoluntario', ['idvoluntario' => $voluntario->idvoluntario]) }}"
-                                            class="btn btn-outline-secondary me-1">Desactivar</a>
-                                    @endcan
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            @endforeach
+        </tbody>
+    </table>
     </div>
-{{--
+
+    <!-- Modal para ver el voluntario -->
+    <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-tittle" id="editModalLabel">Ver Voluntario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        @include('admin.voluntarios.modals.show')
+                    </div>
+                    <div id="editModalContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para editar el voluntario -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exapleModalLabel">Editar Voluntario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @include('admin.voluntarios.modals.edit')
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{--
 <!-- Modal para editar voluntarios -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
 aria-hidden="true">
@@ -151,10 +177,10 @@ aria-hidden="true">
 @section('js')
     <script>
         $(document).ready(function() {
-            const tipoDocumento = $("#tipo_doc");
-            const campoAdicional = $("#campoAdicional");
-            const campoAdicionalLabel = $("#campoAdicionalLabel");
-            const campoAdicionalInput = $("#campoAdicionalInput");
+            const tipoDocumento = $(".tipoDocumentoEdit");
+            const campoAdicional = $(".campoAdicionalEdit");
+            const campoAdicionalLabel = $(".campoAdicionalLabelEdit");
+            const campoAdicionalInput = $(".campoAdicionalInputEdit");
 
             tipoDocumento.on("change", function() {
                 const seleccionado = tipoDocumento.val();
@@ -167,6 +193,24 @@ aria-hidden="true">
                 );
             });
         });
+        $(document).ready(function() {
+            const tipoDocumento = $(".tipoDocumento");
+            const campoAdicional = $(".campoAdicional");
+            const campoAdicionalLabel = $(".campoAdicionalLabel");
+            const campoAdicionalInput = $(".campoAdicionalInput");
+
+            tipoDocumento.on("change", function() {
+                const seleccionado = tipoDocumento.val();
+                const nombreSeleccionado = tipoDocumento
+                    .find(":selected")
+                    .data("nombre");
+                campoAdicional.css("display", seleccionado !== "" ? "block" : "none");
+                campoAdicionalLabel.text(
+                    seleccionado !== "" ? nombreSeleccionado + ":" : ""
+                );
+            });
+        });
+
         $(document).ready(function() {
             const seguro = $("#seguro");
             const idseguro = $("#idseguro");
@@ -384,6 +428,136 @@ aria-hidden="true">
 
             },
         });
+        $(document).ready(function() {
+            $('.ver').click(function() {
+                let voluntarioId = $(this).data('voluntario-id');
+
+                // Realizar la solicitud AJAX para obtener los detalles del voluntario
+                $.ajax({
+                    url: "{{ route('admin.voluntarios.show', ['voluntario' => ':voluntario']) }}"
+                        .replace(':voluntario', voluntarioId),
+                    method: 'GET',
+                    success: function(response) {
+                        // Llenar los campos del modal con los datos del voluntario
+                        $('#showModal #name').val(response.nombres);
+
+                        $('#showModal #tipo_doc').val(response.tipo_documento);
+                        $('#showModal #num_doc').val(response.numero_documento);
+                        $('#showModal #paisNacimientoVoluntario').val(response.pais_nacimiento);
+                        $('#showModal #fechaNacimientoVoluntario').val(response
+                            .fecha_nacimiento);
+                        $('#showModal #generoVoluntario').val(response.sexo);
+                        $('#showModal #estadoCivilVoluntario').val(response.estado_civil);
+                        $('#showModal #telefonoVoluntario').val(response.numero_contacto);
+                        $('#showModal #celularVoluntario').val(response.celular);
+                        $('#showModal #correoVoluntario').val(response.correo);
+                        $('#showModal #direccionVoluntario').val(response.direccion);
+                        $('#showModal #distritoVoluntario').val(response.distrito);
+                        // Mostrar el modal de ver
+                        $('#showModal').modal('show');
+                    },
+                    error: function(xhr, status, error) {
+                        // Manejar el error de la solicitud AJAX
+                        console.log(error);
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $(document).on('click', '.editar', function() {
+                let voluntarioId = $(this).val();
+                $('#editModal').modal('show');
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.voluntarios.edit', ['voluntario' => ':voluntario']) }}"
+                        .replace(':voluntario', voluntarioId),
+                    success: function(response) {
+                        $('#editModal #nombre').val(response.voluntario.nombres);
+                        $('#editModal #tipo_doc').val(response.voluntario.tipo_documento);
+                        $('#editModal #num_doc').val(response.voluntario.numero_documento);
+                        $('#editModal #paisNacimientoVoluntario').val(response.voluntario
+                            .pais_nacimiento);
+                        $('#editModal #fechaNacimientoVoluntario').val(response.voluntario
+                            .fecha_nacimiento);
+                        $('#editModal #generoVoluntario').val(response.voluntario.sexo);
+                        $('#editModal #estadoCivilVoluntario').val(response.voluntario
+                            .estado_civil);
+                        $('#editModal #telefonoVoluntario').val(response.voluntario
+                            .numero_contacto);
+                        $('#editModal #celularVoluntario').val(response.voluntario.celular);
+                        $('#editModal #correoVoluntario').val(response.voluntario.correo);
+                        $('#editModal #direccionVoluntario').val(response.voluntario.direccion);
+                        $('#editModal #distritoVoluntario').val(response.voluntario.distrito);
+                        $('#editModal #voluntarioId').val(response.voluntario.idvoluntario);
+                    }
+                });
+            });
+
+            $('#editModal form').on('submit', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: '¿Deseas actualizar al voluntario?',
+                    showCancelButton: true,
+                    icon: 'info',
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: 'Actualizar',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let voluntarioId = $('#editModal #proyectoId').val();
+                        $.ajax({
+                            url: "{{ route('admin.proyectos.update', ['proyecto' => ':proyecto']) }}"
+                                .replace(':proyecto', proyectoId),
+                            method: 'POST',
+                            data: $(this).serialize(),
+                            success: function(response) {
+                                // Cerrar el modal después de enviar el formulario
+                                $('#editModal').modal('hide');
+
+                                // Mostrar mensaje de éxito
+                                Swal.fire(
+                                    'Voluntario actualizado exitosamente',
+                                    '',
+                                    'success').then(function() {
+                                    // Redirigir a la página de índice de proyectos
+                                    window.location.href =
+                                        '{{ route('admin.voluntarios.index') }}';
+                                });
+
+                            },
+                            error: function(xhr, status, error) {
+                                let response = JSON.parse(xhr.responseText);
+                                if (response.errors) {
+                                    let errors = response.errors;
+
+                                    // Eliminar los mensajes de error existentes
+                                    $('.field-container').find('.text-danger').remove();
+
+                                    // Recorrer los errores y mostrar los mensajes en el formulario
+                                    $.each(errors, function(field, messages) {
+                                        // Mostrar el mensaje de error debajo del campo correspondiente
+                                        $('.field-container').has('[name="' +
+                                                field + '"]')
+                                            .append(
+                                                '<span class="text-danger">' +
+                                                messages[0] +
+                                                '</span>');
+                                    });
+
+                                    // Mostrar el modal de errores
+                                    $('#errorModal').modal('show');
+                                }
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('Operación cancelada', '', 'info');
+                    }
+                });
+
+            });
+        });
     </script>
     {{-- <script>
        {
@@ -528,53 +702,8 @@ aria-hidden="true">
         });
 
 
-        $(document).ready(function() {
-            $('#desactivar').click(function(event) {
-                event.preventDefault();
 
-                let button = $(this);
-                let idVoluntario = button.data('idvoluntario');
-
-                Swal.fire({
-                    title: '¿Deseas desactivar el voluntario?',
-                    showCancelButton: true,
-                    icon: 'warning',
-                    confirmButtonText: 'Desactivar',
-                    denyButtonText: 'Cancelar',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('desactivavoluntario', ['idvoluntario' => ':idvoluntario']) }}"
-                                .replace(':idvoluntario',
-                                    idVoluntario),
-                            type: 'GET',
-                            data: {
-                                _token: '{{ csrf_token() }}'
-                            },
-                            success: function(response) {
-                                Swal.fire(
-                                    'Voluntario desactivado correctamente',
-                                    '',
-                                    'success').then(
-                                    function() {
-                                        window.location
-                                            .href =
-                                            '{{ route('reportevoluntario') }}';
-                                    });
-                            },
-                            error: function(xhr, status, error) {
-                                Swal.fire(
-                                    'Error al desactivar el voluntario',
-                                    '',
-                                    'error');
-                            }
-                        });
-                    } else if (result.isDenied) {
-                        Swal.fire('Operación cancelada', '', 'info');
-                    }
-                });
-            });
-        });}
+    }
     </script>
      
     --}}

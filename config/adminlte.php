@@ -340,7 +340,7 @@ return [
             'icon'        => 'fas fa-user fa-fw',
             'label'       => 4,
             'label_color' => 'success',
-            
+
         ],
         [
             'text'        => 'Lista de Roles',
@@ -348,22 +348,30 @@ return [
             'icon'        => 'fas fa-users-cog fa-fw',
             'label'       => 4,
             'label_color' => 'success',
-            
+
         ],
         [
-            'text'        => 'Voluntarios',
-            'route'         => 'admin.voluntarios.index',
-            'icon'        => 'fas fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'    => 'multilevel',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text'        => 'Voluntarios',
+                    'route'         => 'admin.voluntarios.index',
+                    'icon'        => 'fas fa-fw fa-file',
+                    'label'       => 4,
+                    'label_color' => 'success',
+                ],
+                [
+                    'text'        => 'Proyectos',
+                    'route'       => 'admin.proyectos.index',
+                    'icon'        => 'fas fa-fw fa-file',
+                    'label'       => 4,
+                    'label_color' => 'success',
+                ],
+            ],
         ],
-        [
-            'text'        => 'Proyectos',
-            'route'       => 'admin.proyectos.index',
-            'icon'        => 'fas fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
+
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

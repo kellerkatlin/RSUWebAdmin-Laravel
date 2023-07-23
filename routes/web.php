@@ -47,10 +47,12 @@ Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('proyectos', ProyectosController::class)->names('admin.proyectos');
 
 Route::resource('voluntarios', VoluntariosController::class)->names('admin.voluntarios');
+
+
 /*
 Route::get('modificavoluntario{idvoluntario}', [VoluntariosController::class, 'modificaVoluntario'])->name('modificavoluntario')->middleware('can:modificavoluntario');
 Route::put('actualizavoluntario{idvoluntario}', [VoluntariosController::class, 'actualizaVoluntario'])->name('actualizavoluntario')->middleware('can:modificavoluntario');
-Route::get('activavoluntario/{idvoluntario}', [VoluntariosController::class, 'activaVoluntario'])->name('activavoluntario')->middleware('can:activavoluntario');
+
 Route::get('desactivavoluntario/{idvoluntario}', [VoluntariosController::class, 'desactivaVoluntario'])->name('desactivavoluntario')->middleware('can:desactivavoluntario');
 Route::get('borravoluntario/{idvoluntario}', [VoluntariosController::class, 'borraVoluntario'])->name('borravoluntario')->middleware('can:borravoluntario');
 */

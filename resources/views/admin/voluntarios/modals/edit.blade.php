@@ -1,12 +1,14 @@
-<form action="{{ route('admin.voluntarios.store') }}" method="POST">
-{{csrf_field()}}
+<form action="{{ route('admin.voluntarios.update', ['voluntario' => $voluntario->idvoluntario]) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <input type="text" id="voluntarioId" name="voluntarioId">
     <h1>Formulario de Registro y Acreditacion</h1>
     <h2>II. DATOS PERSONALES DE LA/EL VOLUNTARIA/O</h2>
 
     <div class="row mb-3">
         <div class="col-md-4 field-container">
             <label for="tipo_doc" class="form-label">Tipo Documento:</label>
-            <select class="form-control tipoDocumento" name="idtipodoc">
+            <select class="form-control tipoDocumentoEdit" name="idtipodoc">
                 <option disabled selected>-- Seleccionar --</option>
                 @foreach ($tipo_docs as $tipo_doc)
                     <option value="{{ $tipo_doc->idtipodoc }}" data-nombre="{{ $tipo_doc->nombre_tipodoc }}">
@@ -14,10 +16,11 @@
                 @endforeach
             </select>
         </div>
+
         <div class="col-md-4 field-container">
-            <div class="campoAdicional" style="display: none;">
-                <label for="campoAdicionalInput" class="form-label campoAdicionalLabel"></label>
-                <input type="number"  name="numerodocumento" class="form-control campoAdicionalInput">
+            <div class="campoAdicionalEdit" style="display: none;">
+                <label for="campoAdicionalInput" class="form-label campoAdicionalLabelEdit"></label>
+                <input type="number"  name="numerodocumento" class="form-control campoAdicionalInputEdit">
             </div>
         </div>
         <div class="col-md-4 field-container">
@@ -26,8 +29,7 @@
         </div>
     </div>
 
-
-    <div class="row mb-3">
+{{--  <div class="row mb-3">
 
         <div class="col-md-4 field-container">
             <label for="apellido_paterno" class="form-label">Apellido Paterno:
@@ -332,7 +334,8 @@
     <h2>V. AUTORIZACIONES DE LA/EL VOLUNTARIA/O MAYOR DE EDAD</h2>
     <div class="row mb-3">
         <div class=" d-flex">
-            <label for="desea_informacion" class="form-label col-md-9 field-container">¿Desea recibir información sobre
+            <label for="desea_informacion" class="form-label col-md-9 field-container">¿Desea recibir información
+                sobre
                 organizaciones
                 que pueden
                 adecuar actividades a su interés?</label>
@@ -351,7 +354,8 @@
 
     <div class="row mb-3">
         <div class="d-flex">
-            <label for="notificacionesCorreo" class="form-label col-md-9 field-container">¿Desea recibir notificaciones de
+            <label for="notificacionesCorreo" class="form-label col-md-9 field-container">¿Desea recibir
+                notificaciones de
                 nuevas
                 convocatorias de
                 actividades de voluntariado en su correo electrónico?</label>
@@ -370,7 +374,8 @@
 
     <div class="row mb-3">
         <div class="d-flex">
-            <label for="autorizacionDatos" class="form-label col-md-9 field-container">¿Autoriza usted el uso y publicación de
+            <label for="autorizacionDatos" class="form-label col-md-9 field-container">¿Autoriza usted el uso y
+                publicación de
                 sus
                 datos personales
                 a ser consignados en el Registro de Voluntariado, para acciones vinculadas a oferta y demanda
@@ -430,7 +435,8 @@
 
             <div class="form-check">
                 <div class="d-flex justify-content-between align-items-center field-container">
-                    <input class="form-check-input" type="checkbox" id="terminos" name="declaracion" value="1">
+                    <input class="form-check-input" type="checkbox" id="terminos" name="declaracion"
+                        value="1">
                     <label class="form-check-label" for="terminos">Acepto Términos y Condiciones:</label>
                 </div>
             </div>
@@ -439,5 +445,5 @@
     <div class="modal-footer field-container">
         <button type="submit" class="btn btn-primary">Crear Voluntario</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-    </div>
+    </div>--}}
 </form>
