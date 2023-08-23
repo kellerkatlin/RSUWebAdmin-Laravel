@@ -34,4 +34,14 @@ class Proyecto extends Model
     {
         return $this->hasMany(informeFinal::class);
     }
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
+
 }

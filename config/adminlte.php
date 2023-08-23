@@ -494,6 +494,21 @@ return [
                 ],
             ],
         ],
+        'dhtmlxGantt' =>[
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css',
+                ],
+            ]
+        ],
         'Select2' => [
             'active' => true,
             'files' => [

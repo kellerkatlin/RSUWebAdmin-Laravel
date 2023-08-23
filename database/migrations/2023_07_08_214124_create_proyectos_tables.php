@@ -24,14 +24,6 @@ class CreateProyectosTables extends Migration
             $table->string('estado')->default('inicio')->nullable();
             $table->timestamps();
         });
-        Schema::create('fases', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->integer('proyecto_id');
-            $table->string('nombre');
-            $table->integer('duracion_dias');
-            $table->timestamps();
-            $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
-        });
         Schema::create('responsables', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->string('dni')->unique()->nullable();

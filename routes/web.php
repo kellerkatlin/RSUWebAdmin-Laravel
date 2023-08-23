@@ -52,6 +52,14 @@ Route::resource('voluntarios', VoluntariosController::class)->names('admin.volun
 
 Route::resource('responsables', ResponsableController::class)->names('admin.responsables');
 
+Route::post('proyectos/{proyecto}/responsables', [ProyectoController::class, 'asignarResponsable'])->name('admin.proyectos.responsables.store');
+
+
+Route::get('/gantt', function () {
+    return view('admin.proyectos.charts.gantt');
+});
+
+
 /*
 Route::get('modificavoluntario{idvoluntario}', [VoluntariosController::class, 'modificaVoluntario'])->name('modificavoluntario')->middleware('can:modificavoluntario');
 Route::put('actualizavoluntario{idvoluntario}', [VoluntariosController::class, 'actualizaVoluntario'])->name('actualizavoluntario')->middleware('can:modificavoluntario');
