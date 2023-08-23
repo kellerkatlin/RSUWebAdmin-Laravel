@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\voluntarios\voluntarios;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,9 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(PostSeeder::class);
-        $this->call(RegionSeeder::class);
-        $this->call(ProvinciaSeeder::class);
-        $this->call(DistritoSeeder::class);
+
     }
+
 }

@@ -175,68 +175,66 @@ aria-hidden="true">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 @stop
 @section('js')
+    <script src="{{ asset('js/main.js') }}"></script>
     <script>
         $(document).ready(function() {
+            // Obtener todos los elementos .tipoDocumentoEdit
             const tipoDocumento = $(".tipoDocumentoEdit");
-            const campoAdicional = $(".campoAdicionalEdit");
-            const campoAdicionalLabel = $(".campoAdicionalLabelEdit");
-            const campoAdicionalInput = $(".campoAdicionalInputEdit");
 
-            tipoDocumento.on("change", function() {
-                const seleccionado = tipoDocumento.val();
-                const nombreSeleccionado = tipoDocumento
-                    .find(":selected")
-                    .data("nombre");
-                campoAdicional.css("display", seleccionado !== "" ? "block" : "none");
-                campoAdicionalLabel.text(
-                    seleccionado !== "" ? nombreSeleccionado + ":" : ""
-                );
+            // Iterar sobre cada conjunto de elementos y aplicar el evento
+            tipoDocumento.each(function(index, element) {
+                const tipoDoc = $(element);
+                const campoAdicional = tipoDoc.closest(".field-container").next().find(
+                    ".campoAdicionalEdit");
+                const campoAdicionalLabel = campoAdicional.find(".campoAdicionalLabelEdit");
+                
+                tipoDoc.on("change", function() {
+                    const seleccionado = tipoDoc.val();
+                    const nombreSeleccionado = tipoDoc.find(":selected").data("nombre");
+                    campoAdicional.css("display", seleccionado !== "" ? "block" : "none");
+                    campoAdicionalLabel.text(seleccionado !== "" ? nombreSeleccionado + ":" : "");
+                });
             });
         });
         $(document).ready(function() {
-            const tipoDocumento = $(".tipoDocumento");
-            const campoAdicional = $(".campoAdicional");
-            const campoAdicionalLabel = $(".campoAdicionalLabel");
-            const campoAdicionalInput = $(".campoAdicionalInput");
+            const seguro = $(".seguro");
+            const idseguro = $(".idseguro");
 
-            tipoDocumento.on("change", function() {
-                const seleccionado = tipoDocumento.val();
-                const nombreSeleccionado = tipoDocumento
-                    .find(":selected")
-                    .data("nombre");
-                campoAdicional.css("display", seleccionado !== "" ? "block" : "none");
-                campoAdicionalLabel.text(
-                    seleccionado !== "" ? nombreSeleccionado + ":" : ""
-                );
+            seguro.each(function(index, element) {
+                const seguroElement = $(element); // Cambio de nombre aquí
+                const idseguroElement = idseguro.eq(index);
+                seguroElement.on("change", function() {
+                    const seleccionado = seguroElement.val(); // Cambio de nombre aquí
+                    if (seleccionado === "NO") {
+                        idseguroElement.prop("disabled", true);
+                        idseguroElement.val("");
+                    } else {
+                        idseguroElement.prop("disabled", false);
+                    }
+                });
             });
         });
 
-        $(document).ready(function() {
-            const seguro = $("#seguro");
-            const idseguro = $("#idseguro");
 
-            seguro.on("change", function() {
-                const seleccionado = seguro.val();
-                if (seleccionado === "NO") {
-                    idseguro.prop("disabled", true);
-                    idseguro.val("");
-                } else {
-                    idseguro.prop("disabled", false);
-                }
-            });
-        });
         $(document).ready(function() {
-            const discapacidad = $("#discapacidad");
-            const iddiscapacidad = $("#iddiscapacidad");
+            // Obtener todos los elementos .dis y .iddis
+            const discapacidad = $(".dis");
+            const iddiscapacidad = $(".iddis");
 
-            discapacidad.on("change", function() {
-                const seleccionado = discapacidad.val();
-                if (seleccionado === "NO") {
-                    iddiscapacidad.prop("disabled", true);
-                    iddiscapacidad.val("");
-                } else {
-                    iddiscapacidad.prop("disabled", false);
-                }
+            // Iterar sobre cada conjunto de elementos y aplicar el evento
+            discapacidad.each(function(index, element) {
+                const dis = $(element);
+                const iddis = iddiscapacidad.eq(index);
+
+                dis.on("change", function() {
+                    const seleccionado = dis.val();
+                    if (seleccionado === "NO") {
+                        iddis.prop("disabled", true);
+                        iddis.val("");
+                    } else {
+                        iddis.prop("disabled", false);
+                    }
+                });
             });
         });
         $(document).ready(function() {
@@ -473,22 +471,68 @@ aria-hidden="true">
                     url: "{{ route('admin.voluntarios.edit', ['voluntario' => ':voluntario']) }}"
                         .replace(':voluntario', voluntarioId),
                     success: function(response) {
-                        $('#editModal #nombre').val(response.voluntario.nombres);
-                        $('#editModal #tipo_doc').val(response.voluntario.tipo_documento);
-                        $('#editModal #num_doc').val(response.voluntario.numero_documento);
-                        $('#editModal #paisNacimientoVoluntario').val(response.voluntario
+
+                        $('#editModal #tipo_doc').val(response.voluntario.idtipodoc);
+                        $('#editModal #numero_documento').val(response.voluntario
+                            .numero_documento);
+                        $('#editModal #pais_nacimiento').val(response.voluntario
                             .pais_nacimiento);
-                        $('#editModal #fechaNacimientoVoluntario').val(response.voluntario
+                        $('#editModal #apellido_paterno').val(response.voluntario
+                            .apellido_paterno);
+                        $('#editModal #apellido_materno').val(response.voluntario
+                            .apellido_materno);
+                        $('#editModal #nombre').val(response.voluntario.nombres);
+                        $('#editModal #fecha_nacimiento').val(response.voluntario
                             .fecha_nacimiento);
-                        $('#editModal #generoVoluntario').val(response.voluntario.sexo);
-                        $('#editModal #estadoCivilVoluntario').val(response.voluntario
-                            .estado_civil);
-                        $('#editModal #telefonoVoluntario').val(response.voluntario
+                        $('#editModal #sexo').val(response.voluntario
+                            .sexo);
+                        $('#editModal #edad').val(response.voluntario
+                            .edad);
+                        $('#editModal #idseguro').val(response.voluntario
+                            .idseguro);
+                        $('#editModal #seguro').val(response.voluntario
+                            .seguro);
+                        $('#editModal #iddiscapacidad').val(response.voluntario.iddiscapacidad);
+                        $('#editModal #discapacidad').val(response.voluntario.discapacidad);
+                        let distritos = response.voluntario.distritos;
+                        let provincias = distritos.provincias;
+                        let regiones = provincias.regiones;
+
+                        $('#editModal #iddistrito').val(distritos.iddistrito);
+                        $('#editModal #idprovincia').val(provincias.idprovincia);
+                        $('#editModal #idregion').val(regiones.idregion);
+
+                        $('#editModal #direccion').val(response.voluntario.direccion);
+                        $('#editModal #correo_electronico').val(response.voluntario
+                            .correo_electronico);
+                        $('#editModal #idtipo_telefono').val(response.voluntario
+                            .idtipo_telefono);
+                        $('#editModal #numero_contacto').val(response.voluntario
                             .numero_contacto);
-                        $('#editModal #celularVoluntario').val(response.voluntario.celular);
-                        $('#editModal #correoVoluntario').val(response.voluntario.correo);
-                        $('#editModal #direccionVoluntario').val(response.voluntario.direccion);
-                        $('#editModal #distritoVoluntario').val(response.voluntario.distrito);
+                        $('#editModal #grado_instruccion').val(response.voluntario
+                            .grado_instruccion);
+                        $('#editModal #profesion').val(response.voluntario.profesion);
+                        $('#editModal #ocupacion').val(response.voluntario.ocupacion);
+                        $('input[name="como_se_entero"][value="' + response.voluntario
+                            .como_se_entero + '"]').prop('checked', true);
+
+                        $('#editModal #horario_flexible').val(response.voluntario
+                            .horario_flexible);
+
+                        $('#editModal #desea_informacion').val(response.voluntario
+                            .desea_informacion);
+                        $('#editModal #reciv_correos').val(response.voluntario.reciv_correos);
+                        $('#editModal #auto_datosper').val(response.voluntario.auto_datosper);
+                        $('#editModal #declaracion').val(response.voluntario.declaracion);
+                        $('#editModal #dias_disponibles').empty();
+                        $.each(response.voluntario.dias_disponibles, function(index, dia) {
+                            $('#dias_disponibles[value="' + dia.iddia + '"]').prop(
+                                'checked', true);
+                        });
+                        $.each(response.voluntario.grupos_desea, function(index, grupo) {
+                            $('#grupos_desea[value="' + grupo.idgrupo + '"]').prop(
+                                'checked', true);
+                        });
                         $('#editModal #voluntarioId').val(response.voluntario.idvoluntario);
                     }
                 });
@@ -506,10 +550,10 @@ aria-hidden="true">
                     cancelButtonText: 'Cancelar',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        let voluntarioId = $('#editModal #proyectoId').val();
+                        let voluntarioId = $('#editModal #voluntarioId').val();
                         $.ajax({
-                            url: "{{ route('admin.proyectos.update', ['proyecto' => ':proyecto']) }}"
-                                .replace(':proyecto', proyectoId),
+                            url: "{{ route('admin.voluntarios.update', ['voluntario' => ':voluntario']) }}"
+                                .replace(':voluntario', voluntarioId),
                             method: 'POST',
                             data: $(this).serialize(),
                             success: function(response) {

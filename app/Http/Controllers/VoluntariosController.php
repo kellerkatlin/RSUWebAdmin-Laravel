@@ -418,7 +418,8 @@ class VoluntariosController extends Controller
 
     public function edit(voluntarios $voluntario)
     {
-        return response()->json([
+        $voluntario = voluntarios::with('diasDisponibles')->with('gruposDesea')->with('distritos.provincias.regiones')->find($voluntario->idvoluntario);
+           return response()->json([
             'status' => '200',
             'voluntario' => $voluntario
         ]);

@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VoluntariosController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ProyectosController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\VoluntariosController;
+use App\Http\Controllers\Proyectos\ProyectoController;
+use App\Http\Controllers\Proyectos\ResponsableController;
 
 
 /*
@@ -44,10 +46,11 @@ Route::resource('users', UserController::class)->only(['index', 'edit','update']
 
 Route::resource('roles', RoleController::class)->names('admin.roles');
 
-Route::resource('proyectos', ProyectosController::class)->names('admin.proyectos');
+Route::resource('proyectos', ProyectoController::class)->names('admin.proyectos');
 
 Route::resource('voluntarios', VoluntariosController::class)->names('admin.voluntarios');
 
+Route::resource('responsables', ResponsableController::class)->names('admin.responsables');
 
 /*
 Route::get('modificavoluntario{idvoluntario}', [VoluntariosController::class, 'modificaVoluntario'])->name('modificavoluntario')->middleware('can:modificavoluntario');

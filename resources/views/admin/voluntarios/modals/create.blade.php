@@ -6,7 +6,7 @@
     <div class="row mb-3">
         <div class="col-md-4 field-container">
             <label for="tipo_doc" class="form-label">Tipo Documento:</label>
-            <select class="form-control tipoDocumento" name="idtipodoc">
+            <select class="form-control tipoDocumentoEdit" name="idtipodoc">
                 <option disabled selected>-- Seleccionar --</option>
                 @foreach ($tipo_docs as $tipo_doc)
                     <option value="{{ $tipo_doc->idtipodoc }}" data-nombre="{{ $tipo_doc->nombre_tipodoc }}">
@@ -15,9 +15,9 @@
             </select>
         </div>
         <div class="col-md-4 field-container">
-            <div class="campoAdicional" style="display: none;">
-                <label for="campoAdicionalInput" class="form-label campoAdicionalLabel"></label>
-                <input type="number"  name="numerodocumento" class="form-control campoAdicionalInput">
+            <div class="campoAdicionalEdit" style="display: none;">
+                <label for="campoAdicionalInputEdit" class="form-label campoAdicionalLabelEdit"></label>
+                <input type="number"  name="numerodocumento" class="form-control campoAdicionalInputEdit">
             </div>
         </div>
         <div class="col-md-4 field-container">
@@ -72,7 +72,7 @@
             <label for="edad" class="form-label">Edad:
 
             </label>
-            <input type="number" id="edad" class="form-control" name="edad" value="edad">
+            <input type="number" id="edad" class="form-control" name="edad">
         </div>
     </div>
     <div class="row mb-3">
@@ -80,15 +80,15 @@
             <label for="seguro" class="form-label">¿Cuenta con Seguro Médico?
 
             </label>
-            <select id="seguro" class="form-control" name="seguro">
+            <select class="form-control seguro" name="seguro">
                 <option disabled selected>-- Seleccionar --</option>
                 <option value="SI">SI</option>
-                <option value="NO">N0</option>
+                <option value="NO">NO</option>
             </select>
         </div>
         <div class="col-md-6 field-container">
             <label for="idseguro">Tipo de seguro (Si la respuesta fue SÍ):</label>
-            <select id="idseguro" class="form-control" name="idseguro">
+            <select  class="form-control idseguro" name="idseguro">
                 <option disabled selected>-- Seleccionar --</option>
                 <option value="1">SIS</option>
                 <option value="2">ESSALUD</option>
@@ -100,7 +100,7 @@
     <div class="row mb-3 field-container">
         <div class="col-md-6">
             <label for="discapacidad" class="form-label">¿Cuenta con algún tipo de discapacidad?</label>
-            <select id="discapacidad" class="form-control" name="discapacidad">
+            <select class="form-control dis" name="discapacidad">
                 <option disabled selected>-- Seleccionar --</option>
                 <option value="SI">SI</option>
                 <option value="NO">NO</option>
@@ -110,7 +110,7 @@
         <div class="col-md-6 field-container">
             <label for="iddiscapacidad">Tipo de discapacidad (Si la respuesta fue
                 SÍ):</label>
-            <select id="iddiscapacidad" class="form-control" name="iddiscapacidad">
+            <select class="form-control iddis" name="iddiscapacidad">
                 <option disabled selected>-- Seleccionar --</option>
                 <option value="1">Dificultad para ver</option>
                 <option value="2">Dificultad para oír</option>
