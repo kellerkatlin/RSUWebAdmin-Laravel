@@ -98,11 +98,33 @@
                 <label for="estado">Estado</label>
                 <input type="text" id="estado" class="form-control" name="estado" value="{{ $proyecto->estado }}">
             </div>
+            <button id="openModalButton">Abrir Gantt</button>
             <div class="text-center">
                 <button type="submit" id="actualizarProyecto" class="btn btn-primary">Actualizar</button>
                 <a class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
+
+        <!-- Modal  gantt-->
+        <div id="ganttModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Diagrama de Gantt</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="ganttContainer" style="width: 100%; height: 400px;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="guardarCambios">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         {{-- modal agregar responsables --}}
         <div class="modal fade" id="modalAgregarResponsable" tabindex="-1" role="dialog"
@@ -155,6 +177,7 @@
                                 <label for="firma">Firma</label>
                                 <input type="text" id="firma" class="form-control" name="firma">
                             </div>
+
                             <div class="modal-footer field-container">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -162,8 +185,6 @@
                         </form>
 
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -241,6 +262,49 @@
 @stop
 @section('js')
     <script>
+        document.getElementById('openModalButton').addEventListener('click', function() {
+            event.preventDefault();
+            $('#ganttModal').modal('show');
+            inicializarGantt();
+            actualizarEscala();
+        });
+
+        function inicializarGantt() {
+            const ganttContainer = document.getElementById('ganttContainer');
+            ganttContainer.innerHTML = ''; // Limpiar el contenido anterior si es necesario
+
+            gantt.i18n.setLocale("es");
+            gantt.config.drag_resize = false;
+            gantt.config.drag_move = false;
+
+            // Inicializar el diagrama de Gantt
+            gantt.init(ganttContainer);
+        }
+
+        function actualizarEscala() {
+            const tasks = gantt.getTaskByTime(new Date(0), new Date());
+            const maxDuration = Math.max(...tasks.map(task => task.duration));
+
+            // Configurar la escala según la duración máxima de las tareas
+            if (maxDuration <= 7) {
+                gantt.config.scale_unit = "day";
+                gantt.config.step = 1;
+                gantt.config.date_scale = "%d %M";
+            } else if (maxDuration <= 30) {
+                gantt.config.scale_unit = "week";
+                gantt.config.step = 1;
+                gantt.config.date_scale = "%F  #%W";
+            } else {
+                gantt.config.scale_unit = "month";
+                gantt.config.step = 1;
+                gantt.config.date_scale = "%F %Y";
+            }
+            gantt.render();
+        }
+        gantt.attachEvent("onAfterTaskUpdate", actualizarEscala);
+        gantt.attachEvent("onAfterTaskAdd", actualizarEscala);
+        gantt.attachEvent("onAfterTaskDelete", actualizarEscala);
+
         $(document).ready(function() {
             $('#tablaResponsables').DataTable({
                 "language": {
