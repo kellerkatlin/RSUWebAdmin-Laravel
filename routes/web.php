@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('pagina.index'); 
 });
 
+Route::get('/about', function () {
+    return view('pagina.about'); 
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

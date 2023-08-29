@@ -53,7 +53,7 @@
         <div class="container py-3">
             <div class="d-flex justify-content-between">
                 <div>
-                    <a href="index.html" class="me-auto">
+                    <a href="/" class="me-auto">
                         <h2 class="text-white fw-bold m-0">RSU</h2>
                     </a>
                 </div>
@@ -106,17 +106,17 @@
                         @endif
 
                         <a href="/" class="nav-item nav-link">Inicio</a>
-                        <a href="about.html" class="nav-item nav-link">Nosotros</a>
-                        <a href="service.html" class="nav-item nav-link">Servicios</a>
-                        <a href="project.html" class="nav-item nav-link">Proyectos</a>
+                        <a href="about" class="nav-item nav-link">Nosotros</a>
+                        <a href="service" class="nav-item nav-link">Servicios</a>
+                        <a href="project" class="nav-item nav-link">Proyectos</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Paginas</a>
                             <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
-                                <a href="feature.html" class="dropdown-item">Solicitud Actividades</a>
-                                <a href="team.html" class="dropdown-item">Nuestro equipo</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonios</a>
-                                <a href="quote.html" class="dropdown-item">Voluntariado</a>
-                                <a href="404.html" class="dropdown-item">Medio Ambiente</a>
+                                <a href="feature" class="dropdown-item">Solicitud Actividades</a>
+                                <a href="team" class="dropdown-item">Nuestro equipo</a>
+                                <a href="testimonial" class="dropdown-item">Testimonios</a>
+                                <a href="quote" class="dropdown-item">Voluntariado</a>
+                                <a href="404" class="dropdown-item">Medio Ambiente</a>
                             </div>
                         </div>
                         <a href="contact.html" class="nav-item nav-link">Contactanos</a>

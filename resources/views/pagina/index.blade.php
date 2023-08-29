@@ -523,7 +523,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-4">Elnaces Rapidos</h4>
-                    <a class="btn btn-link" href="">Sobre Nosotros</a>
+                    <a class="btn btn-link" href="/about">Sobre Nosotros</a>
                     <a class="btn btn-link" href="">Contactanos</a>
                     <a class="btn btn-link" href="">Nuestros Servicios</a>
                     <a class="btn btn-link" href="">Terminos & Condicionefa-spin</a>
