@@ -1,20 +1,17 @@
-@extends('adminlte::page')
-
-@section('title', 'admin')
-
-
-@section('content_header')
-    <h1>Reporte de Voluntariados</h1>
-@stop
+@extends('layouts.header-login')
 
 @section('content')
-    <div id="fcalendar"></div>
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100 gap-5">
+    <div>
+        <a href="/admin/dashboard" class="text-uppercase btn btn-success btn-lg">Unidad de formación</a>
+      
+    </div>
+    <div>
+        <a class="text-uppercase btn btn-success btn-lg">Unidad de producción</a>
+    </div>
+    <div>
+        <a class="text-uppercase btn btn-success btn-lg">Unidad de I+D+I</a>
+    </div>
+</div>
 
-@stop
-@section('css')
-@stop
-@section('js')
-    <script>
-
-    </script>
-@stop
+@endsection

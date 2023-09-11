@@ -595,7 +595,7 @@
                             'success'
                         )
 
-                    } else {
+                    } else if (result.isDenied) {
                         Swal.fire(
                             'Cancelado',
                             'No se eliminó el responsable',

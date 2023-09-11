@@ -237,11 +237,12 @@ aria-hidden="true">
                 });
             });
         });
+        
         $(document).ready(function() {
             // Obtener los campos "Departamento", "Provincia" y "Distrito"
-            let departamentoSelect = $("#departamento");
-            let provinciaSelect = $("#provincia");
-            let distritoSelect = $("#distrito");
+            let departamentoSelect = $(".departamento");
+            let provinciaSelect = $(".provincia");
+            let distritoSelect = $(".distrito");
 
             // Agregar un evento para capturar el cambio en el campo "Departamento"
             departamentoSelect.on("change", function() {

@@ -15,7 +15,7 @@ return [
     */
 
     'title' => '',
-    'title_prefix' => 'keller | ',
+    'title_prefix' => 'DRSU | ',
     'title_postfix' => '',
 
     /*
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>RSU</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>DRSU</b>',
+    'logo_img' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT33ilCALztbZ0kIAspT_719mAmwLmyUhr99-2dzLA&s',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'RSU',
+    'logo_img_alt' => 'DRSU',
 
     /*
     |--------------------------------------------------------------------------
@@ -256,7 +256,7 @@ return [
     'dashboard_url' => 'admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => 'register',
+    'register_url' => false,
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
@@ -317,9 +317,9 @@ return [
         ],
         [
             'text' => 'dashboard',
-            'route'  => 'admin.home',
+            'route'  => 'admin.dashboard',
             'icon' => 'fas fa-fw fa-home',
-            'can'  => 'admin.home'
+           
 
         ],
         [

@@ -127,7 +127,7 @@
     <div class="row mb-3">
         <div class="col-md-4 field-container">
             <label for="departamento">Departamento:</label>
-            <select class="form-control" id="departamento" name="departamento">
+            <select class="form-control departamento" name="departamento">
                 <option disabled selected>-- Seleccionar --</option>
                 @foreach ($regiones as $region)
                     <option value="{{ $region->idregion }}">{{ $region->region }}</option>
@@ -136,13 +136,13 @@
         </div>
         <div class="col-md-4 field-container">
             <label for="provincia">Provincia:</label>
-            <select class="form-control" id="provincia" name="provincia" disabled>
+            <select class="form-control provincia" name="provincia" disabled>
                 <option disabled selected>-- Seleccionar --</option>
             </select>
         </div>
         <div class="col-md-4 field-container">
             <label for="distrito">Distrito:</label>
-            <select class="form-control" id="distrito" name="iddistrito" disabled>
+            <select class="form-control distrito" name="iddistrito" disabled>
                 <option disabled selected>-- Seleccionar --</option>
             </select>
         </div>

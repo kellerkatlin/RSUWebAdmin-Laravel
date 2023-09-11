@@ -20,12 +20,13 @@ use App\Http\Controllers\Proyectos\ResponsableController;
 |
 */
 /*Keller prueba*/
+
 Route::get('/', function () {
-    return view('pagina.index'); 
+    return view('pagina.index');
 });
 
 Route::get('/about', function () {
-    return view('pagina.about'); 
+    return view('pagina.about');
 });
 
 Route::get('/dashboard', function () {
@@ -35,33 +36,40 @@ Route::get('/dashboard', function () {
 
 Auth::routes();
 
+Route::prefix('admin')->middleware(['auth'])->group(function () {
 
-Route::get('admin', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
-
-Route::post('obtenerprovincias', [VoluntariosController::class, 'obtenerProvincias'])->name('obtenerprovincias');
-Route::post('obtenerdistritos', [VoluntariosController::class, 'obtenerDistritos'])->name('obtenerDistritos');
-/*
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard-admin');
+    })->name('admin.dashboard');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
+    Route::post('obtenerprovincias', [VoluntariosController::class, 'obtenerProvincias'])->name('obtenerprovincias');
+    Route::post('obtenerdistritos', [VoluntariosController::class, 'obtenerDistritos'])->name('obtenerDistritos');
+    /*
 Route::get('voluntariado', [VoluntariosController::class, 'voluntario'])->name('crearvoluntario');
 
 Route::post('guardarvoluntario', [VoluntariosController::class, 'guardarvoluntario'])->name('guardarvoluntario');
 Route::get('reportevoluntario', [VoluntariosController::class, 'reporteVoluntario'])->name('reportevoluntario')->middleware('can:reportevoluntario');
 */
-Route::resource('users', UserController::class)->only(['index', 'edit','update'])->names('admin.users')->middleware('can:admin.users.index');
+    Route::resource('users', UserController::class)->only(['index', 'edit', 'update'])->names('admin.users')->middleware('can:admin.users.index');
 
-Route::resource('roles', RoleController::class)->names('admin.roles');
+    Route::resource('roles', RoleController::class)->names('admin.roles');
 
-Route::resource('proyectos', ProyectoController::class)->names('admin.proyectos');
+    Route::resource('proyectos', ProyectoController::class)->names('admin.proyectos');
 
-Route::resource('voluntarios', VoluntariosController::class)->names('admin.voluntarios');
+    Route::resource('voluntarios', VoluntariosController::class)->names('admin.voluntarios');
 
-Route::resource('responsables', ResponsableController::class)->names('admin.responsables');
+    Route::resource('responsables', ResponsableController::class)->names('admin.responsables');
 
-Route::post('proyectos/{proyecto}/responsables', [ProyectoController::class, 'asignarResponsable'])->name('admin.proyectos.responsables.store');
+    Route::post('proyectos/{proyecto}/responsables', [ProyectoController::class, 'asignarResponsable'])->name('admin.proyectos.responsables.store');
 
 
-Route::get('/gantt', function () {
-    return view('admin.proyectos.charts.gantt');
+    Route::get('/gantt', function () {
+        return view('admin.proyectos.charts.gantt');
+    });
 });
+
+
+
 
 
 /*
