@@ -36,9 +36,21 @@ class ResponsableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Responsable $responsable)
     {
-        //
+        $this->validate($request, [
+            'dni' => 'required',
+            'nombre' => 'required',
+            'responsabilidades' => 'required',
+            'programa' => 'required',
+            'facultad' => 'required',
+            'correo' => 'required|email',
+            'telefono' => 'required|numeric|digits:9',
+        ]);
+        $responsable = Responsable::create($request->all());
+        Session::flash('message', 'Responsable creado con éxito');
+        return redirect()->route('admin.proyectos.index');
+        
     }
 
     /**
