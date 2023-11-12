@@ -21,12 +21,12 @@ class RoleSeeder extends Seeder
         $role1 = Role::create(['name' => 'Admin']);
         $role2 = Role::create(['name' => 'Bloger']);
         // Asignar el permiso al rol
-/*
+
         Permission::create(['name' => 'admin.home','description'=>'Ver el dashboard'])->syncRoles([$role1, $role2]);
 
         Permission::create(['name'=> 'admin.users.index','description'=>'Ver listado de Usuarios'])->syncRoles([$role1]);
         Permission::create(['name'=> 'admin.users.edit','description'=>'Asignar un rol'])->syncRoles([$role1]);
-
+/*
         Permission::create(['name' => 'reportevoluntario','description'=>'Ver listado de Voluntarios'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'creavoluntario','description'=>'Crear Voluntario'])->assignRole($role1);
         Permission::create(['name' => 'modificavoluntario','description'=>'Modificar Voluntario'])->assignRole($role1);

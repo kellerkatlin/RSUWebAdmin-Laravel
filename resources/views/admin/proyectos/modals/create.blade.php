@@ -1,32 +1,33 @@
 {!! Form::open(['route' => 'admin.proyectos.store', 'method' => 'POST']) !!}
+
 <div class="form-group field-container">
-    {!! Form::label('title', 'Título') !!}
-    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+    {!! Form::label('titulo', 'Título') !!}
+    {!! Form::text('titulo', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group field-container">
-    {!! Form::label('description', 'Descripción') !!}
-    {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+    {!! Form::label('programa', 'Programa') !!}
+    {!! Form::text('programa', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group field-container">
-    {!! Form::label('start_date', 'Fecha de Inicio') !!}
-    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+    {!! Form::label('lugar_ejecucion', 'Lugar de Ejecución') !!}
+    {!! Form::text('lugar_ejecucion', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group field-container">
-    {!! Form::label('end_date', 'Fecha de Fin') !!}
-    {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+    {!! Form::label('beneficiario', 'Beneficiario') !!}
+    {!! Form::text('beneficiario', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group field-container">
-    {!! Form::label('budget', 'Presupuesto') !!}
-    {!! Form::text('budget', null, ['class' => 'form-control']) !!}
+    {!! Form::label('inicio', 'Fecha de Inicio') !!}
+    {!! Form::date('inicio', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group field-container">
-    {!! Form::label('status', 'Estado') !!}
-    {!! Form::select('status', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null, ['class' => 'form-control']) !!}
+    {!! Form::label('termino', 'Fecha de Término') !!}
+    {!! Form::date('termino', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="modal-footer field-container">

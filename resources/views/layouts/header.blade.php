@@ -84,7 +84,7 @@
     <div class="container-fluid bg-white sticky-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
-                <a href="index.html" class="navbar-brand d-lg-none">
+                <a href="/" class="navbar-brand d-lg-none">
                     <h1 class="fw-bold m-0">RSU</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -100,12 +100,12 @@
                                         class="text-white ms-auto me-4">{{ Auth::user()->name }}</a>
                                 @endcan
                             @else
-                                <a href="{{ route('login') }}" class="text-white ms-auto me-4">Iniciar Sesión</a>
+                                <a href="{{ route('login') }}" class="d-lg-none nav-item nav-link">Iniciar Sesión</a>
 
                             @endauth
                         @endif
 
-                        <a href="index.html" class="nav-item nav-link">Inicio</a>
+                        <a href="/" class="nav-item nav-link">Inicio</a>
                         <a href="about.html" class="nav-item nav-link">Nosotros</a>
                         <a href="service.html" class="nav-item nav-link">Servicios</a>
                         <a href="project.html" class="nav-item nav-link">Proyectos</a>
@@ -134,14 +134,16 @@
         @yield('content')
     </div>
     <!-- JavaScript Libraries -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>

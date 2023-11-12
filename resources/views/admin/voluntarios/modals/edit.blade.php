@@ -1,35 +1,38 @@
 <form action="{{ route('admin.voluntarios.update', ['voluntario' => $voluntario->idvoluntario]) }}" method="POST">
     @csrf
     @method('PUT')
-    <input type="text" id="voluntarioId" name="voluntarioId">
+    <input type="hidden" id="voluntarioId" name="voluntarioId">
     <h1>Formulario de Registro y Acreditacion</h1>
     <h2>II. DATOS PERSONALES DE LA/EL VOLUNTARIA/O</h2>
 
     <div class="row mb-3">
         <div class="col-md-4 field-container">
             <label for="tipo_doc" class="form-label">Tipo Documento:</label>
-            <select class="form-control tipoDocumentoEdit" name="idtipodoc">
+            <select class="form-control tipoDocumentoEdit" id="tipo_doc" name="idtipodoc">
                 <option disabled selected>-- Seleccionar --</option>
                 @foreach ($tipo_docs as $tipo_doc)
-                    <option value="{{ $tipo_doc->idtipodoc }}" data-nombre="{{ $tipo_doc->nombre_tipodoc }}">
+                    <option value="{{ $tipo_doc->idtipodoc }}" data-nombre="{{ $tipo_doc->nombre_tipodoc }}"
+                        {{ $voluntario->idtipodoc == $tipo_doc->idtipodoc ? 'selected' : '' }}>
                         {{ $tipo_doc->nombre_tipodoc }}</option>
                 @endforeach
+
             </select>
         </div>
 
         <div class="col-md-4 field-container">
-            <div class="campoAdicionalEdit" style="display: none;">
+            <div class="campoAdicionalEdit">
                 <label for="campoAdicionalInput" class="form-label campoAdicionalLabelEdit"></label>
-                <input type="number"  name="numerodocumento" class="form-control campoAdicionalInputEdit">
+                <input type="number" id="numero_documento" name="numerodocumento"
+                    class="form-control campoAdicionalInputEdit">
             </div>
         </div>
         <div class="col-md-4 field-container">
             <label for="paisNacimientoVoluntario" class="form-label">País de Nacimiento:</label>
-            <input type="text" id="paisNacimientoVoluntario" class="form-control" name="paisnacimiento">
+            <input type="text" id="pais_nacimiento" class="form-control" name="paisnacimiento">
         </div>
     </div>
 
-{{--  <div class="row mb-3">
+    <div class="row mb-3">
 
         <div class="col-md-4 field-container">
             <label for="apellido_paterno" class="form-label">Apellido Paterno:
@@ -57,7 +60,7 @@
             <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:
 
             </label>
-            <input type="date" id="fechaNacimiento" class="form-control" name="fecha_nacimiento">
+            <input type="date" id="fecha_nacimiento" class="form-control" name="fecha_nacimiento">
         </div>
         <div class="col-md-4 field-container">
             <label for="sexo" class="form-label">Sexo:
@@ -74,7 +77,7 @@
             <label for="edad" class="form-label">Edad:
 
             </label>
-            <input type="number" id="edad" class="form-control" name="edad" value="edad">
+            <input type="number" id="edad" class="form-control" name="edad">
         </div>
     </div>
     <div class="row mb-3">
@@ -102,7 +105,7 @@
     <div class="row mb-3 field-container">
         <div class="col-md-6">
             <label for="discapacidad" class="form-label">¿Cuenta con algún tipo de discapacidad?</label>
-            <select id="discapacidad" class="form-control" name="discapacidad">
+            <select id="discapacidad" class="form-control dis" name="discapacidad">
                 <option disabled selected>-- Seleccionar --</option>
                 <option value="SI">SI</option>
                 <option value="NO">NO</option>
@@ -112,7 +115,7 @@
         <div class="col-md-6 field-container">
             <label for="iddiscapacidad">Tipo de discapacidad (Si la respuesta fue
                 SÍ):</label>
-            <select id="iddiscapacidad" class="form-control" name="iddiscapacidad">
+            <select id="iddiscapacidad" class="form-control iddis" name="iddiscapacidad">
                 <option disabled selected>-- Seleccionar --</option>
                 <option value="1">Dificultad para ver</option>
                 <option value="2">Dificultad para oír</option>
@@ -129,7 +132,7 @@
     <div class="row mb-3">
         <div class="col-md-4 field-container">
             <label for="departamento">Departamento:</label>
-            <select class="form-control" id="departamento" name="departamento">
+            <select class="form-control" id="idregion" name="departamento">
                 <option disabled selected>-- Seleccionar --</option>
                 @foreach ($regiones as $region)
                     <option value="{{ $region->idregion }}">{{ $region->region }}</option>
@@ -138,14 +141,20 @@
         </div>
         <div class="col-md-4 field-container">
             <label for="provincia">Provincia:</label>
-            <select class="form-control" id="provincia" name="provincia" disabled>
-                <option disabled selected>-- Seleccionar --</option>
+            <select class="form-control" id="idprovincia" name="provincia" disabled>
+                @foreach ($provincias as $provincia)
+                    <option disabled selected>-- Seleccionar --</option>
+                    <option value="{{ $provincia->idprovincia }}">{{ $provincia->provincia }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col-md-4 field-container">
             <label for="distrito">Distrito:</label>
-            <select class="form-control" id="distrito" name="iddistrito" disabled>
-                <option disabled selected>-- Seleccionar --</option>
+            <select class="form-control" id="iddistrito" name="distrito" disabled>
+                @foreach ($distritos as $distrito)
+                    <option disabled selected>-- Seleccionar --</option>
+                    <option value="{{ $distrito->iddistrito }}">{{ $distrito->distrito }}</option>
+                @endforeach
             </select>
         </div>
     </div>
@@ -209,34 +218,35 @@
         <div class="col-md-2 ">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero" value="Facebook"
-                    id="facebook">
+                    id="como_se_entero">
                 <label class="form-check-label" for="facebook">Facebook</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero" value="Twitter"
-                    id="twitter">
+                    id="como_se_entero">
                 <label class="form-check-label" for="twitter">Twitter</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero" value="Televisión"
-                    id="television">
+                    id="como_se_entero">
                 <label class="form-check-label" for="television">Televisión</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="como_se_entero" value="Web" id="web">
+                <input class="form-check-input" type="radio" name="como_se_entero" value="Web"
+                    id="como_se_entero">
                 <label class="form-check-label" for="web">Web</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero" value="Familia y/o amigos"
-                    id="familia_amigos">
+                    id="como_se_entero">
                 <label class="form-check-label" for="familia_amigos">Familia y/o amigos</label>
             </div>
         </div>
@@ -246,7 +256,7 @@
         <div class="col-md-2">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero"
-                    value="Colegio, Instituto, Universidad" id="colegio_universidad">
+                    value="Colegio, Instituto, Universidad" id="como_se_entero">
                 <label class="form-check-label" for="colegio_universidad">Colegio, Instituto,
                     Universidad</label>
             </div>
@@ -254,27 +264,28 @@
         <div class="col-md-2">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero" value="Sitio Web MIMP"
-                    id="sitio_web_mimp">
+                    id="como_se_entero">
                 <label class="form-check-label" for="sitio_web_mimp">Sitio Web MIMP</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero" value="Eventos Voluntariados"
-                    id="eventos_voluntariados">
+                    id="como_se_entero">
                 <label class="form-check-label" for="eventos_voluntariados">Eventos Voluntariados</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="como_se_entero" value="Gobierno"
-                    id="gobierno">
+                    id="como_se_entero">
                 <label class="form-check-label" for="gobierno">Gobierno</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="como_se_entero" value="Otros" id="otros">
+                <input class="form-check-input" type="radio" name="como_se_entero" value="Otros"
+                    id="como_se_entero">
                 <label class="form-check-label" for="otros">Otros</label>
             </div>
         </div>
@@ -299,11 +310,9 @@
                     <label for="dias_disponibles" class="form-label">Días disponibles:</label>
                     @foreach ($dias as $dia)
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="dias_disponibles[]"
-                                value="{{ $dia->iddia }}">
-                            <label class="form-check-label" for="dias_disponibles[]">
-                                {{ $dia->nombre_dia }}
-                            </label>
+                            <input class="form-check-input" id="dias_disponibles" type="checkbox"
+                                name="dias_disponibles[]" value="{{ $dia['iddia'] }}">
+                            <label class="form-check-label" for="dias_disponibles[]">{{ $dia->nombre_dia }}</label>
                         </div>
                     @endforeach
                 </div>
@@ -315,18 +324,18 @@
     <div class="row mb-5">
 
         <div class="col-md-6 field-container">
-            <label for="grupos_participar" class="form-label">Seleccione los grupos en los que desearía
+            <label for="grupos_desea" class="form-label">Seleccione los grupos en los que desearía
                 participar:</label>
-            <div class="form-check overflow-auto border " style="max-height: 200px; max-width: 500px;">
+            <div class="form-check overflow-auto border" style="max-height: 200px; max-width: 500px;">
                 @foreach ($grupos_partis as $grupos_parti)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="grupos_participar[]"
-                            value="{{ $grupos_parti->idgrupo }}">
-                        <label class="form-check-label" for="grupos_participar[]">
-                            {{ $grupos_parti->nombre_grupo }}
-                        </label>
+                        <input class="form-check-input" id="grupos_desea" type="checkbox" name="grupos_desea[]"
+                            value="{{ $grupos_parti['idgrupo'] }}" id="grupos_parti_{{ $grupos_parti->idgrupo }}">
+                        <label class="form-check-label"
+                            for="grupos_desea[]">{{ $grupos_parti->nombre_grupo }}</label>
                     </div>
                 @endforeach
+
             </div>
         </div>
     </div>
@@ -445,5 +454,5 @@
     <div class="modal-footer field-container">
         <button type="submit" class="btn btn-primary">Crear Voluntario</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-    </div>--}}
+    </div>
 </form>

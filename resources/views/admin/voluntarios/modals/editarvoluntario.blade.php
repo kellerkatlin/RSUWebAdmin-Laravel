@@ -163,7 +163,6 @@
                 <label for="direccion" class="form-label">Dirección:</label>
                 <input type="text" id="direccion" class="form-control" name="direccion"
                     value="{{ $consulta->direccion }}">
-
             </div>
         </div>
         <h5 class="mb-4 mt-4">Datos Contacto</h5>

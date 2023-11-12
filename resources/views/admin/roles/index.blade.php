@@ -102,7 +102,7 @@
                     cancelButtonText: 'Cancelar',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.proyectos.create') }}';
+                        window.location.href = '{{ route('admin.roles.create') }}';
                     } else if (result.isDenied) {
                         Swal.fire('Operación cancelada', '', 'info');
                     }
