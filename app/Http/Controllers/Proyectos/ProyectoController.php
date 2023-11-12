@@ -64,4 +64,15 @@ class ProyectoController extends Controller
         Session::flash('message', 'Proyecto eliminado con éxito');
         return redirect()->route('admin.proyectos.index');
     }
+<<<<<<< HEAD
+=======
+    public function asignarResponsable(Request $request, Proyecto $proyecto)
+{
+    $responsableId = $request->input('responsable_id');
+    $proyecto->responsables()->attach($responsableId);
+
+    return response()->json(['message' => 'Responsable asignado correctamente']);
+}
+
+>>>>>>> e123c47941542cfaf7f146ce279b06f02f91200f
 }

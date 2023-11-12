@@ -58,9 +58,7 @@
                     </a>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
-                    <small class="ms-auto me-4"><i class="fa fa-map-marker-alt me-3"></i>San Martin</small>
-                    <small class="ms-auto me-4"><i class="fa fa-envelope me-3"></i>info@unsm.edu.pe</small>
-                    <small class="ms-auto me-4"><i class="fa fa-phone-alt me-3"></i>+51 935 064 473</small>
+                    
                     <div class="ms-3 d-flex">
                         @if (Route::has('login'))
                             @auth
@@ -81,60 +79,7 @@
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
-    <div class="container-fluid bg-white sticky-top">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
-                <a href="/" class="navbar-brand d-lg-none">
-                    <h1 class="fw-bold m-0">RSU</h1>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav me-auto mb-2 mb-lg-0">
-                        @if (Route::has('login'))
-                            @auth
-                                @can('admin.home')
-                                    <a href="{{ route('admin.home') }}"
-                                        class="text-white ms-auto me-4">{{ Auth::user()->name }}</a>
-                                @endcan
-                            @else
-                                <a href="{{ route('login') }}" class="d-lg-none nav-item nav-link">Iniciar Sesión</a>
 
-                            @endauth
-                        @endif
-
-                        <a href="/" class="nav-item nav-link">Inicio</a>
-<<<<<<< HEAD
-                        <a href="about.html" class="nav-item nav-link">Nosotros</a>
-                        <a href="service.html" class="nav-item nav-link">Servicios</a>
-                        <a href="project.html" class="nav-item nav-link">Proyectos</a>
-=======
-                        <a href="about" class="nav-item nav-link">Nosotros</a>
-                        <a href="service" class="nav-item nav-link">Servicios</a>
-                        <a href="project" class="nav-item nav-link">Proyectos</a>
->>>>>>> e123c47941542cfaf7f146ce279b06f02f91200f
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Paginas</a>
-                            <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
-                                <a href="feature" class="dropdown-item">Solicitud Actividades</a>
-                                <a href="team" class="dropdown-item">Nuestro equipo</a>
-                                <a href="testimonial" class="dropdown-item">Testimonios</a>
-                                <a href="quote" class="dropdown-item">Voluntariado</a>
-                                <a href="404" class="dropdown-item">Medio Ambiente</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contactanos</a>
-                    </div>
-                    <div class="ms-auto d-none d-lg-block">
-                        <a href="" class="btn btn-success rounded-pill py-2 px-3">MAS</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-    </div>
 
     <div id="content">
         @yield('content')

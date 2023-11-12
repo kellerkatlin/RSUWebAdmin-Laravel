@@ -24,94 +24,72 @@ class CreateProyectosTables extends Migration
             $table->string('estado')->default('inicio')->nullable();
             $table->timestamps();
         });
-        Schema::create('fases', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->integer('proyecto_id');
-            $table->string('nombre');
-            $table->integer('duracion_dias');
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->decimal('budget', 8, 2);
+            $table->string('status');
             $table->timestamps();
             $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
         });
-        Schema::create('responsables', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->string('dni')->unique()->nullable();
-            $table->string('nombre')->nullable();
-            $table->string('responsabilidades')->nullable();
-            $table->string('programa')->nullable();
-            $table->string('facultad')->nullable();
-            $table->string('correo')->nullable();
-            $table->string('telefono')->nullable();
-            $table->text('firma')->nullable();
+        Schema::create('alliances', function (Blueprint $table) {
+            $table->id();
+            $table->string('organization_name');
+            $table->string('type');
+            $table->text('description');
             $table->timestamps();
         });
-        //tabla de muchos a muchos de responsables y proyectos
-        Schema::create('proyecto_responsable', function (Blueprint $table) {
-            $table->integer('proyecto_id');
-            $table->integer('responsable_id');
+        Schema::create('evaluations', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('activity_project_id');
+            $table->foreign('activity_project_id')->references('id')->on('activities')->onDelete('cascade');
+            $table->string('evaluation_criteria');
+            $table->integer('score');
+            $table->text('comments')->nullable();
             $table->timestamps();
-            $table->primary(['proyecto_id', 'responsable_id']);
-            $table->index('responsable_id');
-            $table->foreign('proyecto_id')->references('id')->on('proyectos');
-            $table->foreign('responsable_id')->references('id')->on('responsables');
         });
-
-        //tabla de responsables 
-
-
-        Schema::create('informes_avances', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->integer('proyecto_id');
-            $table->string('estado');
+        Schema::create('activity_project', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('activity_id');
+            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
-            $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
         });
-
-        Schema::create(
-            'evidencias_avances',
-            function (Blueprint $table) {
-                $table->integer('id')->autoIncrement();
-                $table->integer('informe_id')->nullable();
-                $table->string('tipo_archivo')->nullable();
-                $table->string('archivo')->nullable();
-                $table->text('descripcion')->nullable();
-                $table->timestamps();
-                $table->foreign('informe_id')->references('id')->on('informes_avances')->onDelete('cascade');
-            }
-        );
-
-
-        Schema::create('informes_finales', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->integer('proyecto_id');
+        Schema::create('alliance_project', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('alliance_id');
+            $table->foreign('alliance_id')->references('id')->on('alliances')->onDelete('cascade');
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
-            $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
         });
-        Schema::create(
-            'evidencias_final',
-            function (Blueprint $table) {
-                $table->integer('id')->autoIncrement();
-                $table->integer('informe_id')->nullable();
-                $table->string('tipo_archivo')->nullable();
-                $table->string('archivo')->nullable();
-                $table->text('descripcion')->nullable();
-                $table->timestamps();
-                $table->foreign('informe_id')->references('id')->on('informes_finales')->onDelete('cascade');
-            }
-        );
-
-        Schema::create('evaluaciones_proyectos', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->integer('proyecto_id');
-            $table->date('fecha');
-            $table->integer('eficacia');
-            $table->integer('eficiencia');
-            $table->integer('sostenibilidad');
-            $table->integer('satisfaccion_comunidad');
-            $table->integer('satisfaccion_estudiantil');
-            $table->integer('total');
+        Schema::create('evaluation_project', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('evaluation_id');
+            $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
+        });
+        Schema::create('evaluation_activity', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('evaluation_id');
+            $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');
+            $table->unsignedBigInteger('activity_id');
+            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
+            $table->timestamps();
+        });
+        Schema::create('evaluation_alliance', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('evaluation_id');
+            $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');
+            $table->unsignedBigInteger('alliance_id');
+            $table->foreign('alliance_id')->references('id')->on('alliances')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

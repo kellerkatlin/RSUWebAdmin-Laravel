@@ -88,7 +88,7 @@
             <select id="seguro" class="form-control" name="seguro">
                 <option disabled selected>-- Seleccionar --</option>
                 <option value="SI">SI</option>
-                <option value="NO">N0</option>
+                <option value="NO">NO</option>
             </select>
         </div>
         <div class="col-md-6 field-container">
@@ -132,7 +132,11 @@
     <div class="row mb-3">
         <div class="col-md-4 field-container">
             <label for="departamento">Departamento:</label>
+<<<<<<< HEAD
             <select class="form-control" id="idregion" name="departamento">
+=======
+            <select class="form-control departamento" id="idregion" name="departamento">
+>>>>>>> e123c47941542cfaf7f146ce279b06f02f91200f
                 <option disabled selected>-- Seleccionar --</option>
                 @foreach ($regiones as $region)
                     <option value="{{ $region->idregion }}">{{ $region->region }}</option>
@@ -141,7 +145,11 @@
         </div>
         <div class="col-md-4 field-container">
             <label for="provincia">Provincia:</label>
+<<<<<<< HEAD
             <select class="form-control" id="idprovincia" name="provincia" disabled>
+=======
+            <select class="form-control provincia" id="idprovincia" name="provincia" disabled>
+>>>>>>> e123c47941542cfaf7f146ce279b06f02f91200f
                 @foreach ($provincias as $provincia)
                     <option disabled selected>-- Seleccionar --</option>
                     <option value="{{ $provincia->idprovincia }}">{{ $provincia->provincia }}</option>
@@ -150,7 +158,11 @@
         </div>
         <div class="col-md-4 field-container">
             <label for="distrito">Distrito:</label>
+<<<<<<< HEAD
             <select class="form-control" id="iddistrito" name="distrito" disabled>
+=======
+            <select class="form-control distrito" id="iddistrito" name="distrito" disabled>
+>>>>>>> e123c47941542cfaf7f146ce279b06f02f91200f
                 @foreach ($distritos as $distrito)
                     <option disabled selected>-- Seleccionar --</option>
                     <option value="{{ $distrito->iddistrito }}">{{ $distrito->distrito }}</option>
@@ -452,7 +464,7 @@
         </div>
     </div>
     <div class="modal-footer field-container">
-        <button type="submit" class="btn btn-primary">Crear Voluntario</button>
+        <button type="submit" class="btn btn-primary">Editar Voluntario</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
     </div>
 </form>

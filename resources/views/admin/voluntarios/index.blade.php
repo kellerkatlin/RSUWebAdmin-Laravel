@@ -215,12 +215,21 @@ aria-hidden="true">
             });
         });
 
+<<<<<<< HEAD
 
         $(document).ready(function() {
             // Obtener todos los elementos .dis y .iddis
             const discapacidad = $(".dis");
             const iddiscapacidad = $(".iddis");
 
+=======
+
+        $(document).ready(function() {
+            // Obtener todos los elementos .dis y .iddis
+            const discapacidad = $(".dis");
+            const iddiscapacidad = $(".iddis");
+
+>>>>>>> e123c47941542cfaf7f146ce279b06f02f91200f
             // Iterar sobre cada conjunto de elementos y aplicar el evento
             discapacidad.each(function(index, element) {
                 const dis = $(element);
@@ -237,11 +246,12 @@ aria-hidden="true">
                 });
             });
         });
+        
         $(document).ready(function() {
             // Obtener los campos "Departamento", "Provincia" y "Distrito"
-            let departamentoSelect = $("#departamento");
-            let provinciaSelect = $("#provincia");
-            let distritoSelect = $("#distrito");
+            let departamentoSelect = $(".departamento");
+            let provinciaSelect = $(".provincia");
+            let distritoSelect = $(".distrito");
 
             // Agregar un evento para capturar el cambio en el campo "Departamento"
             departamentoSelect.on("change", function() {

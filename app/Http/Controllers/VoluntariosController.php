@@ -402,6 +402,7 @@ class VoluntariosController extends Controller
         $voluntario->reciv_correos = $request->reciv_correos;
         $voluntario->auto_datosper = $request->auto_datosper;
         $voluntario->declaracion = $request->declaracion;
+ 
 
         $voluntario->save();
         $voluntario->diasDisponibles()->attach($request->input('dias_disponibles'));
